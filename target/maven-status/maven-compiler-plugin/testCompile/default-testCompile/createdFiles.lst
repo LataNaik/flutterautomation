@@ -1,0 +1,4 @@
+com/example/config/CapabilityManager.class
+com/example/pages/LoginPage.class
+com/example/testcases/LoginTest.class
+com/example/base/BaseTest.class
