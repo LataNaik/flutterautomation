@@ -15,19 +15,17 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 public class BaseTest {
 
     public static RemoteWebDriver driver;
-
     @BeforeClass
-    public void setup() throws IOException, InterruptedException {
+    public void setup() throws InterruptedException, IOException {
 
         System.out.println("Starting Emulator...");
-            Process process = Runtime.getRuntime().exec("emulator -avd Pixel_Fold_API_35");
-            Thread.sleep(20000);
             Process bootCheck = Runtime.getRuntime().exec("adb wait-for-device shell getprop sys.boot_completed");
             bootCheck.waitFor();
             System.out.println("Emulator is ready!");
             
         Properties props = new Properties();
-        try (FileInputStream fis = new FileInputStream("resources/capabilities.properties")) {
+        // try (FileInputStream fis = new FileInputStream("resources/config_" + env + ".properties")) {
+            try (FileInputStream fis = new FileInputStream("resources/config_qa.properties")) {
             props.load(fis);
         } catch (IOException e) {
             System.err.println("❌ Error loading properties file: " + e.getMessage());
@@ -44,7 +42,7 @@ public class BaseTest {
         options.setAppPackage(props.getProperty("appPackage"));
         options.setAppActivity(props.getProperty("appActivity"));
         options.setNoReset(Boolean.parseBoolean(props.getProperty("noReset")));
-        options.setFullReset(Boolean.parseBoolean(props.getProperty("fullReset")));
+        // options.setFullReset(Boolean.parseBoolean(props.getProperty("fullReset")));
 
         try {
             System.out.println("-------------driver try---------------");
@@ -57,8 +55,9 @@ public class BaseTest {
         }
     }
 
+
     @AfterClass
-    public void tearDown() {
+    public void tearDown() throws MalformedURLException {
         if (driver != null) {
             driver.quit();
             System.out.println("✅ Appium session closed successfully!");

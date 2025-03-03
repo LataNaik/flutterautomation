@@ -1,20 +1,41 @@
 package com.example.pages;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.PageFactory;
 
-import io.appium.java_client.pagefactory.AndroidFindBy;
+import com.example.base.BaseTest;
 
-public class LoginPage {
+import io.github.ashwith.flutter.FlutterFinder;
 
-    @AndroidFindBy(id = "englishLanguage")
-    private WebElement englishLanguage;
+public class LoginPage extends BaseTest {
 
-    @AndroidFindBy(id="continueBtn")
-    private WebElement continueBtn;
+    public LoginPage(RemoteWebDriver driver) {
+        BaseTest.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
+    //define all locators
+    FlutterFinder finder = new FlutterFinder(driver);
+    WebElement englishLanguage = finder.bySemanticsLabel("ENGLISH");
+    WebElement btnContinue = finder.bySemanticsLabel("Continue");
+    WebElement userNameField=finder.bySemanticsLabel("username");
+    WebElement passwordField=finder.bySemanticsLabel("password");
+    WebElement btnLogin = finder.bySemanticsLabel("Login");
+
+    //method to select language
     public void selectLanguage() {
+        System.out.println("searching english");
         englishLanguage.click();
-        continueBtn.click();
-        }
+        System.out.println("Clicked on english");
+        btnContinue.click();
+        System.out.println("Clicked on continue");
+    }
 
+    public void loginToApp(String userName, String password){
+        System.out.println("----------------Login--------");
+        userNameField.sendKeys("Reg-1");
+        passwordField.sendKeys("eGov@1234");
+        btnLogin.click();
+    }
 }

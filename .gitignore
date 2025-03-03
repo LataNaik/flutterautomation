@@ -1,1 +1,10 @@
-/.vscode
+# Ignore the entire target directory (Maven/Gradle output)
+target/
+
+# Ignore IDE settings
+.idea/
+.vscode/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
