@@ -1,41 +1,49 @@
 package com.example.pages;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.example.base.BaseTest;
-
+import io.appium.java_client.AppiumBy;
 import io.github.ashwith.flutter.FlutterFinder;
 
-public class LoginPage extends BaseTest {
+public class LoginPage {
+
+    private RemoteWebDriver driver;
+    private FlutterFinder finder;
+    private WebDriverWait wait;
 
     public LoginPage(RemoteWebDriver driver) {
-        BaseTest.driver = driver;
-        PageFactory.initElements(driver, this);
+        this.driver = driver;
+        this.finder = new FlutterFinder(driver);
+
     }
 
-    //define all locators
-    FlutterFinder finder = new FlutterFinder(driver);
-    WebElement englishLanguage = finder.bySemanticsLabel("ENGLISH");
-    WebElement btnContinue = finder.bySemanticsLabel("Continue");
-    WebElement userNameField=finder.bySemanticsLabel("username");
-    WebElement passwordField=finder.bySemanticsLabel("password");
-    WebElement btnLogin = finder.bySemanticsLabel("Login");
-
-    //method to select language
+    // Method to select language
     public void selectLanguage() {
-        System.out.println("searching english");
+        System.out.println("Searching for 'ENGLISH'...");
+        WebElement englishLanguage = driver.findElement(AppiumBy.accessibilityId("FRENCH"));
         englishLanguage.click();
-        System.out.println("Clicked on english");
+        System.out.println("Clicked on English");
+
+    //     // **🔹 Wait dynamically for 10 seconds OR until the 'Continue' button is visible**
+    // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    // wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("Continue")));
+        System.out.println("Searching for 'Continue'...");
+        WebElement btnContinue = driver.findElement(AppiumBy.accessibilityId("Continue"));
+        // finder.byText("Continue");
         btnContinue.click();
-        System.out.println("Clicked on continue");
+        System.out.println("Clicked on Continue");
     }
 
-    public void loginToApp(String userName, String password){
-        System.out.println("----------------Login--------");
-        userNameField.sendKeys("Reg-1");
-        passwordField.sendKeys("eGov@1234");
+    public void loginToApp(String userName, String password) {
+        System.out.println("---------------- Login --------");
+
+        WebElement userNameField = finder.byText("username");
+        WebElement passwordField = finder.byText("password");
+        WebElement btnLogin = finder.byText("Login");
+
+        userNameField.sendKeys(userName);
+        passwordField.sendKeys(password);
         btnLogin.click();
     }
 }

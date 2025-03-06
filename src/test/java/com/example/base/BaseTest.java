@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.Properties;
 
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -33,6 +34,7 @@ public class BaseTest {
         }
 
         UiAutomator2Options options = new UiAutomator2Options();
+        DesiredCapabilities capabilities = new DesiredCapabilities();
         System.out.println("-------------setting capabilities---------------");
         options.setPlatformName(props.getProperty("platformName"));
         options.setDeviceName(props.getProperty("deviceName"));
@@ -42,6 +44,8 @@ public class BaseTest {
         options.setAppPackage(props.getProperty("appPackage"));
         options.setAppActivity(props.getProperty("appActivity"));
         options.setNoReset(Boolean.parseBoolean(props.getProperty("noReset")));
+        options.setAutoGrantPermissions(true);
+        capabilities.setCapability("autoGrantPermissions", true);
         // options.setFullReset(Boolean.parseBoolean(props.getProperty("fullReset")));
 
         try {
