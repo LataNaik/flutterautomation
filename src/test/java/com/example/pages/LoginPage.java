@@ -15,35 +15,29 @@ public class LoginPage {
     public LoginPage(RemoteWebDriver driver) {
         this.driver = driver;
         this.finder = new FlutterFinder(driver);
-
     }
 
     // Method to select language
     public void selectLanguage() {
-        System.out.println("Searching for 'ENGLISH'...");
-        WebElement englishLanguage = driver.findElement(AppiumBy.accessibilityId("FRENCH"));
+        WebElement englishLanguage = driver.findElement(AppiumBy.accessibilityId("ENGLISH"));
         englishLanguage.click();
-        System.out.println("Clicked on English");
-
-    //     // **🔹 Wait dynamically for 10 seconds OR until the 'Continue' button is visible**
-    // WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-    // wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("Continue")));
-        System.out.println("Searching for 'Continue'...");
-        WebElement btnContinue = driver.findElement(AppiumBy.accessibilityId("Continue"));
-        // finder.byText("Continue");
+        WebElement btnContinue = driver.findElement(AppiumBy.accessibilityId("Continue\nContinue"));
         btnContinue.click();
-        System.out.println("Clicked on Continue");
     }
 
-    public void loginToApp(String userName, String password) {
-        System.out.println("---------------- Login --------");
-
-        WebElement userNameField = finder.byText("username");
-        WebElement passwordField = finder.byText("password");
-        WebElement btnLogin = finder.byText("Login");
-
-        userNameField.sendKeys(userName);
-        passwordField.sendKeys(password);
+    // Method to login
+    public void loginToApp() {
+        WebElement userName = driver.findElement(AppiumBy.xpath("//android.view.View//android.widget.EditText[1]"));
+        userName.click();
+        userName.sendKeys("USR-260848");
+        WebElement password = driver.findElement(AppiumBy.xpath("//android.view.View//android.widget.EditText[2]"));
+        password.click();
+        password.sendKeys("eGov@123");
+        WebElement privacyCheckbox = driver.findElement(AppiumBy.xpath("//android.view.View[4]"));
+        privacyCheckbox.click();
+        WebElement btnLogin = driver.findElement(AppiumBy.accessibilityId("Login\nLogin"));
         btnLogin.click();
     }
 }
+
+

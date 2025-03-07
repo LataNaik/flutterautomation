@@ -24,22 +24,14 @@ public class LoginTest extends BaseTest {
         System.out.println("-------------testValidLogin - pre---------------");
         driver = BaseTest.driver; // Assign the initialized driver
         login = new LoginPage(driver); // Initialize LoginPage AFTER driver is set up
-
-        // Handle permission popups before selecting language
         allowPermissions();
-        
-        // **🔹 Wait for 10 seconds before selecting language**
-
-
-    login.selectLanguage();
-        // login.loginToApp(username, password);
+        login.selectLanguage();
+        login.loginToApp();
     }
 
     // Function to handle permission popups
-    
     public void allowPermissions() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5)); // Explicit wait
-    
         String[] permissionIds = {
             "com.android.permissioncontroller:id/permission_allow_button", // Normal Allow
             "com.android.permissioncontroller:id/permission_allow_foreground_only_button" // Allow while using app
