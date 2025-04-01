@@ -27,6 +27,7 @@ public class LoginTest extends BaseTest {
         allowPermissions();
         login.selectLanguage();
         login.loginToApp();
+        login.validateLogin();
     }
 
     // Function to handle permission popups
