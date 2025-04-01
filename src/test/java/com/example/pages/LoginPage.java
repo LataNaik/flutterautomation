@@ -30,26 +30,22 @@ public class LoginPage {
 
     // Method to login
     public void loginToApp() {
-        WebElement userName = driver.findElement(AppiumBy.xpath("(//android.widget.EditText)[1]"));
+        WebElement userName = driver.findElement(AppiumBy.xpath("//android.view.View//android.widget.EditText[1]"));
         userName.click();
         userName.sendKeys("USR-260848");
-        WebElement password = driver.findElement(AppiumBy.xpath("//android.widget.EditText[2]"));
-        password.click();
+        WebElement password = driver.findElement(AppiumBy.xpath("//android.view.View//android.widget.EditText[2]"));  password.click();
         password.sendKeys("eGov@123");
         WebElement privacyCheckbox = driver.findElement(AppiumBy.xpath("//android.view.View[4]"));
         privacyCheckbox.click();
-        WebElement btnLogin = driver.findElement(AppiumBy.accessibilityId("Login"));
+        WebElement btnLogin = driver.findElement(AppiumBy.xpath("(//android.view.View[@content-desc=\"Login\"])[2]"));
         btnLogin.click();
     }
 
     // Method to validate projects
     public void validateLogin(){
         System.out.println("--------------validate login--------------");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement projects = wait.until(ExpectedConditions.presenceOfElementLocated(AppiumBy.xpath("//android.view.View[@content-desc=\"Projects\"]")));
-
-//        WebElement projects=driver.findElement(AppiumBy.xpath("//android.view.View[@content-desc=\"Projects\"]"));
-
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+        WebElement projects = wait.until(ExpectedConditions.presenceOfElementLocated(AppiumBy.accessibilityId("Projects")));
         Boolean isProjectsDisplayed=projects.isDisplayed();
         Assert.assertTrue(isProjectsDisplayed, "Project lists are displayed");
     }
