@@ -38,6 +38,16 @@ public class LoginPage {
         WebElement btnLogin = driver.findElement(AppiumBy.accessibilityId("Login\nLogin"));
         btnLogin.click();
     }
+
+    // Method to validate projects
+    public void validateLogin(){
+        System.out.println("--------------validate login--------------");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+        WebElement projects = wait.until(ExpectedConditions.presenceOfElementLocated(AppiumBy.accessibilityId("Projects")));
+        Boolean isProjectsDisplayed=projects.isDisplayed();
+        Assert.assertTrue(isProjectsDisplayed, "Project lists are displayed");
+    }
+    
 }
 
 
