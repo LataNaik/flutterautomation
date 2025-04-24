@@ -39,7 +39,7 @@ public class BaseTest {
         options.setPlatformName(props.getProperty("platformName"));
         options.setDeviceName(props.getProperty("deviceName"));
         options.setAutomationName(props.getProperty("automationName"));
-        options.setCapability("platformVersion", "14.0");
+        options.setCapability("platformVersion", "16.0");
         options.setApp(props.getProperty("app"));
         options.setAppPackage(props.getProperty("appPackage"));
         options.setAppActivity(props.getProperty("appActivity"));
